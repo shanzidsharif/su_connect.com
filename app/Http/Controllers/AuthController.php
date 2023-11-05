@@ -75,7 +75,7 @@ class AuthController extends Controller
         ];
         if(!empty($user))
         {
-            $user->remember_token = Str::random(20);
+            $user->remember_token = Str::random(40);
             $user->save();
             Mail::to($user->email)->send(new ForgotPasswordMail($content, $user));
             return redirect()->back()->with('success', 'Check Your Email');
@@ -88,6 +88,38 @@ class AuthController extends Controller
 
     }
 
+    public function resetPassword($p_token)
+    {
+        $user = User::getVerifyToken($p_token);
+        if(!empty($user))
+        {
+
+            return view('auth.reset', [
+                'user' => $user
+            ]);
+        }
+        else
+        {
+            abort(404);
+        }
+    }
+
+    public function postResetPassword($token, Request $request)
+    {
+
+        if($request->password == $request->confirm_password)
+        {
+            $user = User::getVerifyToken($token);
+            $user->password = Hash::make($request->password);
+            $user->remember_token = Str::random(40);
+            $user->save();
+            return redirect('')->with('success', 'Password changed Successfully');
+        }
+        else
+        {
+            return redirect()->back()->with('error', 'Password and Confirm Password does not matched!!!');
+        }
+    }
 
     public function logout()
     {

@@ -7,37 +7,29 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header text-center text-success">
-                            <h3>Login</h3>
+                            <h3>Reset Password</h3>
                         </div>
-                        <form action="{{ route('login') }}" method="post">
+                        <form action="{{ route('reset.password',['token'=>$user->remember_token]) }}" method="post">
                             @csrf
                             <div class="card-body">
                                 @include('_message')
                                 <div class="form-group row">
                                     <label for="" class="col-md-3">Email</label>
-                                    <input type="email" name="email" class="col-md-9 form-control" placeholder="Email">
-                                </div>
-                                <div class="form-group row mt-2">
-                                    <label for="" class="col-md-3">Password</label>
                                     <input type="password" name="password" class="col-md-9 form-control" placeholder="Password">
                                 </div>
-                                <div class="form-group row mt-2">
-                                    <label for="" class="col-md-3"></label>
-                                    <div class="col-md-9">
-                                        <input type="checkbox" id="remember" name="remember">
-                                        <span><label for="remember" class="">Remember me</label></span>
-                                    </div>
-
+                                <div class="form-group row">
+                                    <label for="" class="col-md-3">Email</label>
+                                    <input type="password" name="confirm_password" class="col-md-9 form-control" placeholder="Confirm Password">
                                 </div>
 
                                 <div class="mt-3 col-md-6 offset-3">
-                                    <input type="submit" class="btn btn-outline-success form-control" value="Login">
+                                    <input type="submit" class="btn btn-outline-success form-control" value="Reset">
                                 </div>
                             </div>
                         </form>
 
                         <div class="col-md-6 mb-3 offset-3">
-                            <a href="{{ route('forget.password') }}" class="text-info">Forgot Password?</a>
+                            <a href="{{ url('') }}" class="text-info">Login</a>
                         </div>
 
                     </div>

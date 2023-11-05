@@ -48,5 +48,13 @@ class User extends Authenticatable
         $user=  User::where('email', $email)->first();
 
         return $user;
+    }public static function getVerifyToken($token)
+    {
+
+        $user=  User::where('remember_token', $token)->first();
+
+        return $user;
     }
+
+
 }

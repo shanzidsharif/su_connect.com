@@ -23,8 +23,5 @@ class DashboardController extends Controller
             return view('student.dashboard', $title);
         }
     }
-    public function adminList()
-    {
-        return view('admin.admin.list');
-    }
+
 }

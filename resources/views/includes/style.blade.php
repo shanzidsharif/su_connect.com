@@ -17,3 +17,4 @@
 <link rel="stylesheet" href ="{{ asset('/public') }}/assets/plugins/daterangepicker/daterangepicker.css">
 <!-- summernote -->
 <link rel="stylesheet" href ="{{ asset('/public') }}/assets/plugins/summernote/summernote-bs4.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

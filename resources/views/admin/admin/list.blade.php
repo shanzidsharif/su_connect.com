@@ -10,19 +10,23 @@
                 <!-- /.row -->
                 <div class="row">
                     <div class="col-12">
+                        @include('_message')
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Responsive Hover Table</h3>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3 class="card-title">Admin List Table</h3>
 
-                                <div class="card-tools">
-                                    <div class="input-group input-group-sm" style="width: 150px;">
-                                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" name="search" id="search" placeholder="Search" class="form-control">
+                                    </div>
 
-                                        <div class="input-group-append">
-                                            <button type="submit" class="btn btn-default">
-                                                <i class="fas fa-search"></i>
-                                            </button>
-                                        </div>
+                                    <div class="col-md-4">
+                                        <a href="{{ route('add') }}"
+                                           class="float-right btn btn-success" style="width:150px">
+                                            Add Admin
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -31,44 +35,34 @@
                                 <table class="table table-hover text-nowrap">
                                     <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>User</th>
+                                        <th>Sl</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
                                         <th>Date</th>
-                                        <th>Status</th>
-                                        <th>Reason</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="tableAllData">
+                                    @foreach($list as $item)
                                     <tr>
-                                        <td>183</td>
-                                        <td>John Doe</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-success">Approved</span></td>
-                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->created_at }}</td>
+                                        <td>
+                                            <a href="{{ route('edit.admin',['id' => $item->id]) }}" class="btn btn-sm btn-success">Edit</a>
+                                            <a href="{{ route('delete.admin',['id' => $item->id]) }}" class="btn btn-sm btn-danger">Delete</a>
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td>219</td>
-                                        <td>Alexander Pierce</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-warning">Pending</span></td>
-                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>657</td>
-                                        <td>Bob Doe</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-primary">Approved</span></td>
-                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                    </tr>
-                                    <tr>
-                                        <td>175</td>
-                                        <td>Mike Doe</td>
-                                        <td>11-7-2014</td>
-                                        <td><span class="tag tag-danger">Denied</span></td>
-                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                    <tbody id="tableSearchData">
+
                                     </tbody>
                                 </table>
+                                {!! $list->links() !!}
+
+
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -79,8 +73,42 @@
                 <!-- /.row -->
             </div><!-- /.container-fluid -->
         </section>
+
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+    <script type="text/javascript">
+
+        $('#search').on('keyup', function () {
+            var value = $(this).val();
+            if(value)
+            {
+                $('#tableAllData').hide();
+                $('#tableSearchData').show();
+            }
+            else{
+                $('#tableAllData').show();
+                $('#tableSearchData').hide();
+            }
+            $.ajax({
+                type:"GET",
+                url: "{{ route('search') }}",
+                data: {'search': value},
+                success:function (data) {
+                    console.log(data);
+                    $('#tableSearchData').html(data);
+                },
+                // error:function(jqXHR){alert(jqXHR.status);},
+
+
+            });
+        });
+
+    </script>
 
 @endsection
+
+
+
+
+
