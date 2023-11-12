@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Hash;
+use Auth;
 
 class AdminController extends Controller
 {
@@ -76,7 +77,7 @@ class AdminController extends Controller
             ->where('user_type', 1)
             ->orWhere('email','like','%'.$request->search.'%')
             ->where('user_type', 1)
-            ->get();
+            ->paginate();
 
         $sl = 1;
         foreach ($list as $item)
@@ -84,7 +85,7 @@ class AdminController extends Controller
             $output.=
                 '<tr>
                     <td>
-                        '.$item->id.'
+                        '.$sl++.'
                     </td>
                     <td>
                         '.$item->name.'

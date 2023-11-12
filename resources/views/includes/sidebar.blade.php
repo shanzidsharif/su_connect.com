@@ -40,7 +40,31 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('logout') }}" class="nav-link">
+                        <a href="{{ url('/admin/class/list') }}" class="nav-link {{ Request::is('admin/class/list*') ? 'active' : '' }}">
+                            <i class="nav-icon far fa-user"></i>
+                            <p>
+                                Class
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('/admin/subject/list') }}" class="nav-link {{ Request::is('admin/subject/list*') ? 'active' : '' }}">
+                            <i class="nav-icon far fa-user"></i>
+                            <p>
+                                Subject
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('/admin/subject-assign/list') }}" class="nav-link {{ Request::is('admin/subject-assign/list*') ? 'active' : '' }}">
+                            <i class="nav-icon far fa-user"></i>
+                            <p>
+                                Assign Subject
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('logout') }}" onclick="return confirm('Do You want to Logout!')" class="nav-link">
                             <i class="fa fa-sign-out text-"></i>
                             <p>
                                 Logout

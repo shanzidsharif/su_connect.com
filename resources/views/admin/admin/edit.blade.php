@@ -46,7 +46,7 @@
                                         <input type="submit" class="btn btn-outline-success form-control" value="Update">
                                     </div>
                                 </div>
-                            </form
+                            </form>
                             <!-- /.card-body -->
                         </div>
                         <!-- /.card -->
