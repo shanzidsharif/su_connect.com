@@ -7,6 +7,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\ClassSubjectController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\LecturerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,10 +76,26 @@ Route::group(['middleware' => 'admin'], function ()
     Route::get('admin/subject-assign/list/search', [ClassSubjectController::class, 'search'])->name('search.subject.class');
 
 // Student-->Admin
-    Route::get('admin/student/list', [ClassSubjectController::class, 'admin.studentList']);
-    Route::get('admin/student/list-add', [ClassSubjectController::class, 'add'])->name('add.admin.student');
-    Route::post('admin/student/list-add', [ClassSubjectController::class, 'insert'])->name('insert.admin.student');
+    Route::get('admin/student/list', [StudentController::class, 'adminStudentList']);
+    Route::get('admin/student/list-add', [StudentController::class, 'add'])->name('add.admin.student');
+    Route::post('admin/student/list-add', [StudentController::class, 'insert'])->name('insert.admin.student');
+    Route::get('admin/student/list-status/{id}', [StudentController::class, 'status'])->name('status.admin.student');;
+    Route::get('admin/student/list-details/{id}', [StudentController::class, 'details'])->name('details.admin.student');
+    Route::get('admin/student/list-edit/{id}', [StudentController::class, 'edit'])->name('edit.admin.student');
+    Route::post('admin/student/list-update', [StudentController::class, 'update'])->name('update.admin.student');
+    Route::get('admin/student/list-delete/{id}', [StudentController::class, 'delete'])->name('delete.admin.student');
+    Route::get('admin/student/list-search', [StudentController::class, 'search'])->name('search.admin.student');
 
+// Lecturer--->Admin
+    Route::get('admin/lecturer/list', [LecturerController::class, 'adminLecturerList']);
+    Route::get('admin/lecturer/list-add', [LecturerController::class, 'add'])->name('add.admin.lecturer');
+    Route::post('admin/lecturer/list-add', [LecturerController::class, 'insert'])->name('insert.admin.lecturer');
+    Route::get('admin/lecturer/list-status/{id}', [LecturerController::class, 'status'])->name('status.admin.lecturer');;
+    Route::get('admin/lecturer/list-details/{id}', [LecturerController::class, 'details'])->name('details.admin.lecturer');
+    Route::get('admin/lecturer/list-edit/{id}', [LecturerController::class, 'edit'])->name('edit.admin.lecturer');
+    Route::post('admin/lecturer/list-update', [LecturerController::class, 'update'])->name('update.admin.lecturer');
+    Route::get('admin/lecturer/list-delete/{id}', [LecturerController::class, 'delete'])->name('delete.admin.lecturer');
+    Route::get('admin/lecturer/list-search', [LecturerController::class, 'search'])->name('search.admin.lecturer');
 
 });
 

@@ -64,6 +64,22 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ url('/admin/student/list') }}" class="nav-link {{ Request::is('admin/student/list*') ? 'active' : '' }}">
+                            <i class="nav-icon far fa-user"></i>
+                            <p>
+                                Student
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('/admin/lecturer/list') }}" class="nav-link {{ Request::is('admin/lecturer/list*') ? 'active' : '' }}">
+                            <i class="nav-icon far fa-user"></i>
+                            <p>
+                                Lecturer
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('logout') }}" onclick="return confirm('Do You want to Logout!')" class="nav-link">
                             <i class="fa fa-sign-out text-"></i>
                             <p>

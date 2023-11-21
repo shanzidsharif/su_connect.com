@@ -15,12 +15,12 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <h3 class="card-title">{{ $edit->first_name }} {{ $edit->last_name }} Student Edit Page</h3>
+                                        <h3 class="card-title">{{ $edit->first_name }} {{ $edit->last_name }} Lecturer Edit Page</h3>
                                     </div>
                                 </div>
                             </div>
                             <!-- /.card-header -->
-                            <form action="{{ route('update.admin.student') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('update.admin.lecturer') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $edit->id }}">
                                 <div class="col-md-12 text-center" style="height: 300px;">
@@ -43,29 +43,30 @@
                                                 <input type="text" name="last_name" class="form-control" value="{{ $edit->last_name }}">                                            </td>
                                         </tr>
                                         <tr>
-                                            <th>Semester Time</th>
+                                            <th>Lecturer Email</th>
                                             <td>
-                                                {{ ($year->year == 1 ? 'One Year' : ($year->year == 3 ? 'Three Years' : ($year->year == 4 ? 'Four Years' : '' ))) }}
+                                                <input type="email" name="email" value="{{ old('email', $edit->email) }}"  required class="col-md-9 form-control" placeholder="Email">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Lecturer Password</th>
+                                            <td>
+                                                <input type="password" name="password" class="col-md-9 form-control" placeholder="Do you want to Change Password Then Type">
                                             </td>
                                         </tr>
                                         <tr>
 
-                                            <th>Student ID</th>
+                                            <th>Lecturer ID</th>
                                             <td>
-                                                <input type="text" class="form-control" name="student_id" value="{{ $edit->student_id }}">
+                                                <input type="text" class="form-control" name="student_id" value="{{ $edit->lecturer_id }}">
+                                            </td>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>Student Email</th>
+                                            <th>Lecturer Mobile</th>
                                             <td>
-                                                <input type="email" class="form-control" name="email" value="{{ $edit->email }}">
+                                                <input type="text" name="mobile" value="{{ $edit->mobile }}" required class="col-md-9 form-control" placeholder="Number">
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <th>Student Password</th>
-                                            <td>
-                                                <span>If you want to change Default Password then Enter</span>
-                                                <input type="password" class="form-control" name="password" placeholder="If you want to change Password">
                                             </td>
                                         </tr>
                                         <tr>
@@ -75,29 +76,34 @@
                                                     @foreach($departments as $department)
                                                     <option class="form-control" value="{{ $department->id }}"{{ $department->id  == $edit->department ? 'selected' : '' }} >{{ $department->department }} {{ $department->year }}Y </option>
                                                     @endforeach
+
                                                 </select>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>Date</th>
-                                            <td>{{ $edit->created_at }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Father's Name</th>
+                                            <th>Joining Date</th>
                                             <td>
-                                                <input type="text" name="father_name" class="form-control" value="{{ $edit->father_name }}">
+
+                                                <input type="date" name="joining_date"  value="{{ $edit->joining_date }}" class="col-md-9 form-control" placeholder="Birth Date">
+
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>Mother's Name</th>
+                                            <th>Date Of Birth</th>
                                             <td>
-                                                <input type="text" name="mother_name" class="form-control" value="{{ $edit->mother_name }}">
+                                                <input type="date" name="date_of_birth" value="{{ $edit->date_of_birth }}" class="col-md-9 form-control" placeholder="Birth Date">
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>Blood</th>
+                                            <th>Experience</th>
                                             <td>
-                                                <input type="text" name="blood" class="form-control" value="{{ $edit->blood }}">
+                                                <input type="text" name="experience" value="{{ $edit->experience }}"  class="col-md-9 form-control" placeholder="Work Experience in Years">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Qualification</th>
+                                            <td>
+                                                <input type="text" name="qualification" value="{{ $edit->qualification }}"  class="col-md-9 form-control" placeholder="Qualification">
                                             </td>
                                         </tr>
                                         <tr>
@@ -109,7 +115,11 @@
                                         <tr>
                                             <th>Admission Date</th>
                                             <td>
-                                                <input type="date" name="admission_date" class="form-control" value="{{ $edit->admission_date }}">
+                                                <select name="gender" class="form-control" id="">
+                                                        <option class="form-control" value="{{ $edit->gender }}"{{ $edit->gender  == 1 ? 'selected' : '' }} >Male</option>
+                                                        <option class="form-control" value="{{ $edit->gender }}"{{ $edit->gender  == 2 ? 'selected' : '' }} >Female</option>
+                                                        <option class="form-control" value="{{ $edit->gender }}"{{ $edit->gender  == 3 ? 'selected' : '' }} >Others</option>
+                                                </select>
                                             </td>
                                         </tr>
                                         <tr>
@@ -131,13 +141,18 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <th>Bio</th>
+                                            <td>
+                                                <textarea name="bio" class="form-control" id="" cols="30" rows="10">{{ $edit->bio }}</textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <th>Status</th>
                                             <td>
                                                 @if($edit->status == 0)
-                                                    <a href="{{ route('status.admin.student',['id'=> $edit->id]) }}" class="btn btn-sm btn-secondary">Inactive</a>
+                                                    <a href="{{ route('status.admin.lecturer',['id'=> $edit->id]) }}" class="btn btn-sm btn-secondary">Inactive</a>
                                                 @else
-                                                    <a href="{{ route('status.admin.student',['id'=> $edit->id]) }}" class="btn btn-sm btn-primary" onclick="return confirm('Change to Inactive?')" >Active</a>
-                                                @endif
+                                                    <a href="{{ route('status.admin.lecturer',['id'=> $edit->id]) }}" class="btn btn-sm btn-primary" onclick="return confirm('Change to Inactive?')" >Active</a>@endif
 
                                             </td>
                                         </tr>
@@ -145,7 +160,7 @@
                                         <tr class="mt-2">
                                             <th></th>
                                             <td>
-                                                <input type="submit" class="widget-user btn btn-outline-success" value="Update Student Details" >
+                                                <input type="submit" class="widget-user btn btn-outline-success" value="Update Lecturer Details" >
                                             </td>
                                         </tr>
 

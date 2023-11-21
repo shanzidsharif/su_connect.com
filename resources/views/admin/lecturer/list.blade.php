@@ -15,17 +15,17 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <h3 class="card-title">Class List</h3>
+                                        <h3 class="card-title">Lecturer List</h3>
 
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="text" name="search" id="adminStudentSearch" placeholder="Search" class="form-control">
+                                        <input type="text" name="search" id="adminLecturerSearch" placeholder="Search" class="form-control">
                                     </div>
 
                                     <div class="col-md-4">
-                                        <a href="{{ route('add.admin.student') }}"
+                                        <a href="{{ route('add.admin.lecturer') }}"
                                            class="float-right btn btn-success" style="width:150px">
-                                            Add Student
+                                            Add Lecturer
                                         </a>
                                     </div>
                                 </div>
@@ -36,45 +36,45 @@
                                     <thead>
                                     <tr>
                                         <th>Sl</th>
+                                        <th>Image</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Mobile</th>
-                                        <th>Department</th>
-                                        <th>NID</th>
+                                        <th>Joining Date</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
-                                    <tbody id="adminStudentAllData">
+                                    <tbody id="adminLecturerAllData">
                                     @foreach($list as $item)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>
+                                                <img src="{{ asset($item->image) }}" alt="" height="30px"  class="rounded-circle widget-user">
+                                            </td>
                                             <td>{{ $item->first_name }} {{ $item->last_name }}</td>
                                             <td>{{ $item->email }}</td>
                                             <td>{{ $item->mobile }}</td>
                                             <td>
-                                                {{ $item->class }}-{{ ($item->year == 1 ? 'One Year' : ($item->year == 3 ? 'Three Years' : ($item->year == 4 ? 'Four Years' : '' ))) }}
-                                            </td>
-                                            <td>
-                                                {{ $item->nid }}
+                                                {{ $item->joining_date }}
                                             </td>
                                             <td>
                                                 @if($item->status == 0)
-                                                    <a href="{{ route('status.admin.student',['id'=> $item->id]) }}" class="btn btn-sm btn-secondary">Inactive</a>
+                                                    <a href="{{ route('status.admin.lecturer',['id'=> $item->id]) }}" class="btn btn-sm btn-secondary">Inactive</a>
                                                 @else
-                                                    <a href="{{ route('status.admin.student',['id'=> $item->id]) }}" class="btn btn-sm btn-primary" onclick="return confirm('Change to Inactive?')" >Active</a>
+                                                    <a href="{{ route('status.admin.lecturer',['id'=> $item->id]) }}" class="btn btn-sm btn-primary" onclick="return confirm('Change to Inactive?')" >Active</a>
                                                 @endif
 
                                             </td>
                                             <td>
-                                                <a href="{{ route('details.admin.student',['id' => $item->id]) }}" class="btn btn-sm btn-info">Details</a>
-                                                <a href="{{ route('edit.admin.student',['id' => $item->id]) }}" class="btn btn-sm btn-success">Edit</a>
-                                                <a href="{{ route('delete.admin.student',['id' => $item->id]) }}" class="btn btn-sm btn-danger">Delete</a>
+                                                <a href="{{ route('details.admin.lecturer',['id' => $item->id]) }}" class="btn btn-sm btn-info">Details</a>
+                                                <a href="{{ route('edit.admin.lecturer',['id' => $item->id]) }}" class="btn btn-sm btn-success">Edit</a>
+                                                <a href="{{ route('delete.admin.lecturer',['id' => $item->id]) }}" class="btn btn-sm btn-danger">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
-                                    <tbody id="adminStudentSearchData">
+                                    <tbody id="adminLecturerSearchData">
 
                                     </tbody>
                                 </table>
@@ -95,24 +95,24 @@
     <!-- /.content-wrapper -->
     <script type="text/javascript">
 
-        $('#adminStudentSearch').on('keyup', function () {
+        $('#adminLecturerSearch').on('keyup', function () {
             var value = $(this).val();
             if(value)
             {
-                $('#adminStudentAllData').hide();
-                $('#adminStudentSearchData').show();
+                $('#adminLecturerAllData').hide();
+                $('#adminLecturerSearchData').show();
             }
             else{
-                $('#adminStudentAllData').show();
-                $('#adminStudentSearchData').hide();
+                $('#adminLecturerAllData').show();
+                $('#adminLecturerSearchData').hide();
             }
             $.ajax({
                 type:"GET",
-                url: "{{ route('search.admin.student') }}",
+                url: "{{ route('search.admin.lecturer') }}",
                 data: {'search': value},
                 success:function (data) {
                     console.log(data);
-                    $('#adminStudentSearchData').html(data);
+                    $('#adminLecturerSearchData').html(data);
                 },
                  // error:function(jqXHR){alert(jqXHR.status);},
 
